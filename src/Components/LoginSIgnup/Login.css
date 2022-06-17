@@ -1,0 +1,50 @@
+.l1{width: 400px;
+    
+    color: black;
+    margin: auto;
+}
+.mail{
+    padding: 15px 15px 15px 15px;
+    font-size: 20px;
+}
+.l2{
+    padding: 12px 72px 12px 72px;
+    color: white;
+    background-color: rgb(40, 215, 228);
+    font-size: 17px;
+    border: 1px solid rgba(40, 215, 228)
+}
+.l2:hover{
+    cursor: pointer;
+    background-color: rgba(9, 172, 172, 0.993)
+}
+.l3{
+    display: flex;
+}
+.img1{
+    width: 100%;
+    height: 100%;
+}
+.Gbtn1{
+    border: none;
+   /* border:1px solid slategray;  */
+   margin-left: 30px;
+   background-color: white;
+}
+.Gbtn2{
+    border:none; 
+    margin-left: 20px;
+   background-color: white;
+
+ }
+ .label{
+     font-size: 20px;
+ }
+ .link{
+     color: rgb(71,151,242);
+     font-size: 20px;
+ }
+ .link:hover{
+     cursor: pointer;
+     color: black;
+ }

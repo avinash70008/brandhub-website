@@ -1,0 +1,53 @@
+.r1{
+
+    line-height: 40px;
+    font-size: 25px;
+}
+.r2{
+   
+    width: 400px;
+    color: black;
+    margin: auto;
+ 
+}
+.r3{
+    padding: 15px 15px 15px 15px;
+    font-size: 20px;
+    
+}
+.r4{
+    padding: 12px 72px 12px 72px;
+    color: white;
+    background-color: rgb(40, 215, 228);
+    font-size: 17px;
+    border: 1px solid rgba(40, 215, 228)
+}
+.r4:hover{
+    cursor: pointer;
+    background-color: rgba(9, 172, 172, 0.993)
+}
+.r5{
+    display: flex;
+    /* border:  2px solid red; */
+
+}
+
+
+.Gbtn1,.Gbtn2{
+    border: none;
+   background-color: white;
+}
+
+
+
+.label{
+    font-size: 20px;
+}
+.link{
+    color: rgb(71,151,242);
+    font-size: 20px;
+}
+.link:hover{
+    cursor: pointer;
+    color: black;
+}
