@@ -5,10 +5,10 @@ export const Cart = () => {
   let total = 0;
   const [data, setData] = useState([]);
   const navigate = useNavigate();
-  const incrementQuantity = id => {
+  const incrementQuantity = _id => {
     let temp = data;
     let updated = temp.filter((el)=>{
-      if(el.id==id){
+      if(el._id==_id){
         el.quantity++
       }
       return el
@@ -21,10 +21,10 @@ export const Cart = () => {
     
   };
 
-  const decrementQuantity = id => {
+  const decrementQuantity = _id => {
     let temp = data;
     let updated = temp.filter((el)=>{
-      if(el.id==id && el.quantity>1){
+      if(el._id==_id && el.quantity>1){
         el.quantity--
       }
       return el
@@ -75,14 +75,14 @@ export const Cart = () => {
           <div className="counter">
             <button
               onClick={() => {
-                incrementQuantity(el.id);
+                incrementQuantity(el._id);
               }}
             >
               +
             </button>
             <p>{el.quantity}</p>
             <button onClick={() => {
-              decrementQuantity(el.id)
+              decrementQuantity(el._id)
             }}>-</button>
           </div>
           <div className="Details">
