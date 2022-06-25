@@ -1,22 +1,58 @@
 import {
   Button,
   TextField,
-  Typography,
+  Typography,Alert
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { GetCartDAta } from "../../Redux/Cart/ActionCart";
 
 export default function Checkout() {
+  const data2 = useSelector((store)=>store.SignIn.data)
+  console.log("login check",data2)
+  const dispatch = useDispatch()
+
+ 
   const navigate = useNavigate();
   const [data, setData] = useState([]);
+  const [firstName , setFirstName] = useState("");
+  const [lastName , setLastName] = useState("");
+  const [address , setAddress] = useState("");
+  const [ city, setCity] = useState("");
+  const [state , setState] = useState("");
+  const [mobile , setMobile] = useState("");
+  const [pincode , setPincode] = useState("");
+ 
   let total = 0;
-  useEffect(() => {
-    let cart = JSON.parse(localStorage.getItem("cartData"));
-    setData([...data, ...cart]);
-  }, []);
+  // useEffect(() => {
+  //    let cart = JSON.parse(localStorage.getItem("cartData"));
+  //   / 
+  //   setData([...data, ...cart]);
+  // }, []);
+
+   useEffect(()=>{
+        
+   axios.get("https://avinashbrandhub.herokuapp.com/cart").then((res)=>{
+         setData(res.data);
+        })
+       console.log(data)
+ }, [])
+
+//  const HandleChange = (e) =>{
+//  const input = e.target.value
+
+//  }
+// console.log(HandleChange)
+const handleSubmit = () =>{
+  
+}
+
   return (
     <>
+    <form onSubmit={handleSubmit}>
       <Box
         sx={{
           width: "80%",
@@ -51,7 +87,7 @@ export default function Checkout() {
           <Box sx={{ width: "50%" }}>
             <Box
               component="form"
-              noValidate
+              
               sx={{ 
                 margin: "auto",
                 marginTop: "20px",
@@ -64,11 +100,17 @@ export default function Checkout() {
               <TextField
                 variant="standard"
                 label="First Name"
+               value = {firstName}
+               onChange={(e)=>{setFirstName(e.target.value)}}
+               
                 required
+                
               />
               <TextField
                 variant="standard"
                 label="Last Name"
+                value = {lastName}
+                onChange={(e)=>{setLastName(e.target.value)}}
                 required
               />
             </Box>
@@ -85,6 +127,8 @@ export default function Checkout() {
               <TextField
                 variant="standard"
                 label=" Current Address"
+                value = {address}
+                onChange={(e)=>{setAddress(e.target.value)}}
                 fullWidth
                 required
               />
@@ -102,11 +146,15 @@ export default function Checkout() {
               <TextField
                 variant="standard"
                 label="City"
+                value = {city}
+                onChange={(e)=>{setCity(e.target.value)}}
                 required
               />
               <TextField
                 variant="standard"
                 label="State"
+                value = {state}
+                onChange={(e)=>{setState(e.target.value)}}
                 required
               />
             </Box>
@@ -123,11 +171,15 @@ export default function Checkout() {
               <TextField
                 variant="standard"
                 label="Pincode"
+                value = {pincode}
+                onChange={(e)=>{setPincode(e.target.value)}}
                 required
               />
               <TextField
                 variant="standard"
                 label="Mobile No."
+                value = {mobile}
+                onChange={(e)=>{setMobile(e.target.value)}}
                 required
               />
             </Box>
@@ -143,16 +195,19 @@ export default function Checkout() {
                 variant="contained"
                 onClick={() => {
                  
-
-                 
+                if(firstName!=="" && lastName!=="" && pincode!=="" && mobile!=="" && city!=="" && address!=="")
                   navigate("/payment");
-                
+                 else{
+                 alert("Please filled all Details")
+                 }
+              
                 }}
               >
                 Proceed To Payment
               </Button>
             </Box>
           </Box>
+         
 
           <Box sx={{ width: "50%" }}>
             <Typography sx={{ textAlign: "center" }}>
@@ -167,7 +222,7 @@ export default function Checkout() {
             >
               {data.map((el, index) => {
                 {
-                  total += Number(el.price * el.quantity);
+                  total += Number(el.price * el.qty);
                 }
                 return (
                   <div key={index} className="flexdiv">
@@ -181,7 +236,7 @@ export default function Checkout() {
                     </div>
 
                     <div className="Details">
-                      <p>Price: {el.price * el.quantity}</p>
+                      <p>Price: {el.price * el.qty}</p>
                       <p>Size: {el.size}</p>
                     
                       <p>Colour: {el.colour}</p>
@@ -194,10 +249,7 @@ export default function Checkout() {
           </Box>
         </Box>
       </Box>
+      </form>
     </>
   );
-}
-
-
-
-
+            };

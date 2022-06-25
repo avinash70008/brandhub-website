@@ -45,7 +45,7 @@ export const Blazer = () => {
          setSort(value)
     }
 
-     // FILTERS ---------------------------->  COLOR , BRAND , SIZE
+     // FILTERS ---------------------------->  COLOR , SIZE
 
      BlazerData = BlazerData.filter((el)=>{
 

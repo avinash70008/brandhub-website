@@ -10,7 +10,7 @@ export const BlazerData = (payload) => ({
 
 export const getBlazerData = () => (dispatch) => {
 
-    axios.get("https://avinashbrand.herokuapp.com/blazer").then((res) => {
+    axios.get("https://avinashbrandhub.herokuapp.com/blazer").then((res) => {
         dispatch(BlazerData(res.data))
     })
 }

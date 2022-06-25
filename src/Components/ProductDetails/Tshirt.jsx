@@ -1,14 +1,27 @@
 
+import axios from "axios"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router"
 import { useNavigate } from "react-router"
+
 
 export const TshirtDetails = () => {
 
     const {_id} = useParams()
     const navigate = useNavigate();
     const [data ,setData] = useState([])
+    let BackendCart = []
+    
+    useEffect(()=>{
+        
+        axios.get("https://avinashbrandhub.herokuapp.com/cart").then((data)=>{
+            console.log("useEffect", data.data)
+            let ans = data.data
+            BackendCart = ans
+           
+           })
+    }, [])
     
     useEffect(()=>{getData()},[])
 
@@ -22,29 +35,31 @@ export const TshirtDetails = () => {
      }
    // console.log(data)
 
-   let arr = JSON.parse(localStorage.getItem("cartData")) || [];
+   
 
    function AddToCart(el){
-    let cart= JSON.parse(localStorage.getItem("cartData"))||[];
-
-    let temp=   cart.filter((elem)=>{
-           if(elem._id===el._id){
-               return elem
-           }
-          
-           
-      })
-    if(temp.length==0){
-       arr.push(el);
-       localStorage.setItem("cartData",JSON.stringify(arr));
-       alert("Item add to  cart successful!!")
-      
-    }
-    else{
-        alert("Item is already in the cart!!")
-    }
-   }
     
+    let temp =   BackendCart.filter((elem)=>{
+        if(elem._id==el._id){
+            return elem
+        }
+       
+        
+   })
+ if(temp.length==0){
+ 
+
+    axios.post("https://avinashbrandhub.herokuapp.com/cart", el).then((data)=>{
+     console.log("backend", data)
+     alert("Product is Added into the Cart")
+    })   // 54-56
+ 
+ }
+ else{
+     alert("Item is already in the cart!!")
+ }
+
+}
 
     return(
 

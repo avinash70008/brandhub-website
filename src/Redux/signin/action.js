@@ -5,7 +5,7 @@ import axios from "axios";
 export const LOGIN_LOADING = "LOGIN_LOADING";
 export const LOGIN_ERROR = "LOGIN_ERROR";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-
+export const TOKEN = "TOKEN";
 
 
 
@@ -20,14 +20,21 @@ export const Login_Request=(data,navigate)=>(dispatch)=>{
 
     axios.post(`https://pcmobileee.herokuapp.com/login`,data).then((res)=>
          {
-            //console.log(res.data);
+            console.log(res.data);
             alert("Login Successfully");
-            dispatch(login_succes(res.data))
-            navigate("/checkout")
+            //  dispatch(login_succes(res.data))
+            dispatch(login_succes(res.data.token.split(".")[0]))
+            navigate("/")
          }).catch((e)=>
          {
           alert("Invalid User")
            console.log("err"+e)
            dispatch(login_error())
          })
+}
+
+
+export const TokenLogin=(data)=>(dispatch)=>{
+  
+ dispatch({type:TOKEN, payload: data})
 }

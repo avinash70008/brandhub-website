@@ -5,11 +5,24 @@ import {  useNavigate, useParams } from "react-router"
 
 export const JeansDetails = () => {
 
-    const {id} = useParams()
+    const {_id} = useParams()
     
     const navigate = useNavigate();
     const [data ,setData] = useState([])
     
+    let BackendCart = []
+    
+    useEffect(()=>{
+        
+        axios.get("http://localhost:5000/cart").then((data)=>{
+            console.log("useEffect", data.data)
+            let ans = data.data
+            BackendCart = ans
+           
+           })
+    }, [])
+
+
     useEffect(()=>{getData()},[])
 
     var JeansData = useSelector((store)=> store.jeans.jeans)
@@ -17,26 +30,32 @@ export const JeansDetails = () => {
     
      const getData = ()=>{
         
-        let updatedData = JeansData.filter((el)=>el.id==id )
+        let updatedData = JeansData.filter((el)=>el._id==_id )
         setData(updatedData)
      }
     
-        let arr = JSON.parse(localStorage.getItem("cartData")) || [];
+        // let arr = JSON.parse(localStorage.getItem("cartData")) || []
 
         function AddToCart(el){
-            let cart= JSON.parse(localStorage.getItem("cartData"))||[];
+            // let cart= JSON.parse(localStorage.getItem("cartData"))||[];
 
             let temp=   cart.filter((elem)=>{
-                   if(elem.id==el.id){
+                   if(elem._id==el._id){
                        return elem
                    }
                   
                    
               })
             if(temp.length==0){
-               arr.push(el);
-               localStorage.setItem("cartData",JSON.stringify(arr)||[]);
-               alert("Item add to  cart successful!!")
+            //    arr.push(el);
+            //    localStorage.setItem("cartData",JSON.stringify(arr)||[]);
+            //    alert("Item add to  cart successful!!")
+
+            axios.post("http://localhost:5000/cart", el).then((data)=>{
+                console.log("backend", data)
+                alert("Product is Added into the Cart")
+               })  
+
             
             }
             else{
@@ -50,14 +69,14 @@ export const JeansDetails = () => {
        <>    
             <div className="detailsPage">
             {data.map((el)=>(
-                <div key={el.id} className="leftPart">
+                <div key={el._id} className="leftPart">
                     <img src={el.imgUrl} alt="" height="100%" width="100%" />
                 </div>
 
             ))}
 
             {data.map((el)=>(
-                <div key={el.id} className="rightPart">
+                <div key={el._id} className="rightPart">
                     <h1 id="price"> Rs . {el.price}</h1>
                     <h3> Color - {el.colour}</h3>
                     <h3> Size - {el.size}</h3>

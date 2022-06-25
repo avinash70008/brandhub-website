@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router"
 import { useNavigate } from "react-router"
+import axios from "axios"
 
 export const PantDetails = () => {
 
@@ -10,8 +11,20 @@ export const PantDetails = () => {
     const navigate = useNavigate();
     const [data ,setData] = useState([])
     
-    useEffect(()=>{getData()},[])
+    let BackendCart = []
+    
+    useEffect(()=>{
+        
+        axios.get("https://avinashbrandhub.herokuapp.com/cart").then((data)=>{
+            console.log("useEffect", data.data)
+            let ans = data.data
+            BackendCart = ans
+           
+           })
+    }, [])
+   
 
+    useEffect(()=>{getData()},[])
     var PantData = useSelector((store)=> store.pant.pant)
     console.log(PantData)
     
@@ -22,22 +35,31 @@ export const PantDetails = () => {
      }
    // console.log(data)
 
-   let arr = JSON.parse(localStorage.getItem("cartData")) || [];
+  
 
    function AddToCart(el){
-    let cart= JSON.parse(localStorage.getItem("cartData"))||[];
+  
 
-    let temp=   cart.filter((elem)=>{
-           if(elem._id===el._id){
-               return elem
-           }
+    // let temp=   cart.filter((elem)=>{
+    //        if(elem._id===el._id){
+    //            return elem
+    //        }
           
            
-      })
+    //   })
+
+      let temp =   BackendCart.filter((elem)=>{
+        if(elem._id==el._id){
+            return elem
+        }
+       
+        
+   })
     if(temp.length==0){
-       arr.push(el);
-       localStorage.setItem("cartData",JSON.stringify(arr));
-       alert("Item add to  cart successful!!")
+        axios.post("https://avinashbrandhub.herokuapp.com/cart", el).then((data)=>{
+            console.log("backend", data)
+            alert("Product is Added into the Cart")
+           })  
       
     }
     else{

@@ -4,7 +4,7 @@ import {Link}  from "react-router-dom"
  import axios  from "axios"
 import "./Login.css"
 import { useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Login_Request } from "../../Redux/signin/action"
 
 
@@ -12,8 +12,10 @@ import { Login_Request } from "../../Redux/signin/action"
 
 export const Signin  = ()=>{
     const dispatch=useDispatch()
-
-    const  navigate =useNavigate()
+     const data = useSelector((store)=>store.SignIn.data)
+     console.log("login",data)
+     
+         const  navigate =useNavigate()
     const [user,setUser] = useState({
        
         email:"",
@@ -40,6 +42,7 @@ export const Signin  = ()=>{
 
     const login  =() =>{
         dispatch(Login_Request(user,navigate))
+        console.log(user, "user")
     }
 
 

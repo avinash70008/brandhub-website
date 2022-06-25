@@ -11,7 +11,7 @@ export const PantData = (payload) => ({
 
 export const getPantData = () => (dispatch) => {
 
-    axios.get("https://avinashbrand.herokuapp.com/pant").then((res)=>{
+    axios.get("https://avinashbrandhub.herokuapp.com/pant").then((res)=>{
         dispatch(PantData(res.data))
     })
 }

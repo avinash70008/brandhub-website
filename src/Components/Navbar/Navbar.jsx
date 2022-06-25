@@ -18,12 +18,28 @@ export const NavbarIs = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-            
-              <Nav.Link href="/tshirt">Tshirt</Nav.Link>
-              <Nav.Link href="/shirt">Shirt</Nav.Link>
-              <Nav.Link href="/pant">Pant</Nav.Link>
-              <Nav.Link href="/blazer">Blazers</Nav.Link>
-          
+            <div style={{
+              "display": "flex",
+              "gap":"10px",
+
+            }}>
+              <Link to="/tshirt" style={{
+                "color":"white",
+                "textDecoration": "none"
+              }}>Tshirt</Link>
+              <Link to="/shirt" style={{
+                "color":"white",
+                "textDecoration": "none"
+              }}>Shirt</Link>
+              <Link to="/pant" style={{
+                "color":"white",
+                "textDecoration": "none"
+              }}>Pant</Link>
+              <Link to="/blazer" style={{
+                "color":"white",
+                "textDecoration": "none"
+              }}>Blazers</Link>
+              </div>
             </Nav>
             <Nav>
               <Nav.Link href="#f8ec00ts"></Nav.Link>
@@ -32,14 +48,14 @@ export const NavbarIs = () => {
                 href="#memes"
               ></Nav.Link>
               <div className="cartIcon">
-                <a href="/cart">
+                <Link to="/cart">
                   <img
                     src="https://cdn3.iconfinder.com/data/icons/e-commerce-2-1/256/2-512.png"
                     alt=""
                     height="100%"
                     width="100%"
                   />
-                </a>
+                </Link>
               </div>
             </Nav>
           </Navbar.Collapse>

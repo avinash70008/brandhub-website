@@ -10,7 +10,7 @@ export const ShirtData = (payload) => ({
 
 export const getShirtData = () => (dispatch) => {
 
-    axios.get("https://avinashbrand.herokuapp.com/shirt").then((res) => {
+    axios.get("https://avinashbrandhub.herokuapp.com/shirt").then((res) => {
         dispatch(ShirtData(res.data))
     })
 }
