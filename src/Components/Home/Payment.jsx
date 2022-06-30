@@ -81,17 +81,18 @@ const navigate= useNavigate()
         <h4>payment</h4>
       </div>
 
-      <div >
-        <p>your product will be delivered to following addres:</p>
+      <div>
+        <p>your product will be delivered to following Addres:</p>
         <div className="d-flex gap-2 m-0">
-          <h5>Address: </h5>
-          <p >Name: {details.firstname}</p>
-          <p>First Name:{details.lastname}</p>
-          <p>{details.lastname}</p>
-          <p>{details.email}</p>
-          <p>{details.phone}</p>
-          <p>{details.city}</p>
         
+          <p>Name:{details.firstname}</p>
+        
+           <p>EMAIL:{details.email}</p>
+          <p>MOBILE:{details.phone}</p>
+     
+          <p>CITY:{details.city}</p>
+          <p>STATE:{details.state}</p>
+          <p>PINCODE:{details.pincode}</p>
         </div>
 
 
