@@ -85,7 +85,9 @@ export const PantDetails = () => {
                   
                     <h3> Size - {el.size}</h3>
 
-                    <button onClick={()=>AddToCart(el)} id="cartButton">ADD TO CART</button>
+                    <button onClick={()=>AddToCart(el)} style={{"padding":"10px", 'backgroundColor':"blue","borderRadius":"10px",
+                        
+                   "color": "white","cursor":"pointer" }}>ADD TO CART</button>
                 </div>
                 
             ))}

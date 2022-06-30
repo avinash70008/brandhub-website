@@ -1,7 +1,7 @@
 import { Login } from "@mui/icons-material"
 import {Routes , Route} from "react-router"
 import { Cart } from "../Components/Home/Cart"
-import Checkout from "../Components/Home/Checkout"
+import { Checkoutdummy } from "../Components/Home/Checkoutdummy"
 import { Home } from "../Components/Home/Home"
 import { Payment } from "../Components/Home/Payment"
 import { PaymentSuccessful } from "../Components/Home/PaymentSuccessful"
@@ -15,6 +15,7 @@ import { Blazer } from "../Components/Products/Blazer"
 import { Pant } from "../Components/Products/pant"
 import { Shirt } from "../Components/Products/Shirt" 
 import { Tshirt } from "../Components/Products/Tshirt"
+import { Checkout } from "../Components/Home/Checkout"
 
 
 
@@ -37,6 +38,7 @@ export const AllRoutes =() => {
             <Route path ="/shirtdetails/:_id" element ={<ShirtDetails/>}/>
             <Route path ="/pantdetails/:_id" element ={<PantDetails />}/>
             <Route path ="/blazerdetails/:_id" element ={<BlazerDetails/>}/>
+            <Route path ="/getaddress/:_id" element ={<Payment/>}/>
      
 
             <Route path ="/cart" element ={<Cart/>}/>
@@ -44,7 +46,9 @@ export const AllRoutes =() => {
             <Route path ="/paymentsuccessful" element ={<PaymentSuccessful />}/>
             <Route path="/signin" element={<Signin/>}/>
             <Route path="/signup" element={<Signup/>}/>
+      
             <Route path='/checkout' element={<Checkout/>}/>
+           
            
         </Routes>
     )

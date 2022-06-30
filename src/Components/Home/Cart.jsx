@@ -42,7 +42,7 @@ export const Cart = () => {
      useEffect(() => {
 
          dispatch(GetCartDAta())
-     }, [])
+     })
 
 const getData = async()=>{
     const response = await fetch("https://avinashbrandhub.herokuapp.com/cart")

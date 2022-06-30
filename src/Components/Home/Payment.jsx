@@ -1,89 +1,165 @@
+import React from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import { useNavigate } from 'react-router';
 
-export function Payment() {
+export const Payment = () => {
 
-    const navigate = useNavigate()
-
-    const [ formData , setFormData] = React.useState({
-        name : "",
-        cardNo : "",
-        expiry :"",
-        cvv : ""
-    })
-
+  const [cardholdername, setCardholdername] = useState("");
+  const [cardnumber, setCardnumber] = useState("");
+  const [validity, setValidity] = useState("");
+  const [cvv, setCvv] = useState("");
+  
+  const dispatch = useDispatch();
+const navigate= useNavigate()
 
   
 
+  const { _id } = useParams();
+  const [details, setDetails] = useState({});
 
-const HandleChange = (e) => {
+  useEffect(() => {
+    fetch(`https://avinashbrandhub.herokuapp.com/getaddress/${_id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => setDetails(res))
+      .catch((err) => console.log(err));
+  }, []);
 
-        const {id,value} = e.target;
-        setFormData({...formData , [id] : value})
+  
+  function handlepayment (){
+    if (
+      cardholdername == "" ||
+      cardnumber == "" ||
+      validity == "" ||
+      cvv == ""
+    ) {
+      alert("wrong card details");
+     
+    
       
-    }
-
-    const HandleSubmit = () => {
-
-      
-      console.log(formData.cardNo)
-
-      if(formData.name !=="" && formData.cardNo.length == 16 && formData.expiry.length == 5 && formData.cvv.length == 3   ){
-        alert("payment Sucessful") 
-        navigate("/paymentsuccessful")
-       
-      }
-      
+    } else  if(cardnumber.length!=16){
+    
+      alert("card number is not valid");
+     
+    } else  if(cvv.length!=3){
+    
+      alert("cvv is not valid")
+    }else  if(validity.length!=5){
+    
+      alert(" entervalid date")}
       else{
-          alert("Invalid Credential !")
+        alert("payment Sucessfull")
+        navigate("/")
       }
-  }
+
+    
+
+    setCardholdername("");
+    setCardnumber("");
+    setValidity("");
+    setCvv("");
+    
+  };
+
+    
+
+
+ 
 
   return (
-    <>
-    <h1 id="mycart">Enter Your Card Details</h1>
-    <div className="paymentBox">
-    <Box
-      sx={{
-        alignItems: 'center',
-        '& > :not(style)': { m: 1 },
-      }}
-    >
-      <TextField onChange={HandleChange}
-        id="name"
-        label="Name"
-      /> 
+    <div>
+      <div className="d-flex justify-content-center mb-2">
+        <h4>payment</h4>
+      </div>
 
-     <TextField onChange={HandleChange}
-        id="cardNo"
-        label="Card Number"
-      /> 
+      <div >
+        <p>your product will be delivered to following addres:</p>
+        <div className="d-flex gap-2 m-0">
+          <h5>Address: </h5>
+          <p >Name: {details.firstname}</p>
+          <p>First Name:{details.lastname}</p>
+          <p>{details.lastname}</p>
+          <p>{details.email}</p>
+          <p>{details.phone}</p>
+          <p>{details.city}</p>
+        
+        </div>
 
-      <TextField onChange={HandleChange}
-        id="expiry"
-        label="Expiry Date"
-      /> 
 
-      <TextField onChange={HandleChange}
-        id="cvv"
-        label="CVV"
-      /> 
     
-     {/* ---------------------- Button --------------------------------------- */}
+   </div>
 
+   <div
+   className=" mt-3 shadow-sm p-3 mb-5 bg-body rounded m-auto"
+   style={{ width: "30%" }}
+ >
+   <h6>Card Details:</h6>
+   <div>
+     <input
+       type="text"
+       className="form-control"
+       placeholder="Card holder Name"
+       value={cardholdername}
+       onChange={(e) => setCardholdername(e.target.value)}
+       required
+     />
 
-    <Stack direction="row" spacing={2}>
-      <Button onClick={HandleSubmit} id='paymentBtn' variant="contained">Place Your Order</Button>
-    </Stack>
- 
-    </Box>
-    </div>
-    </>
+     <br />
+
+     <input
+       type="number"
+       className="form-control"
+       placeholder="Card Number"
+       value={cardnumber}
+       onChange={(e) => setCardnumber(e.target.value)}
+       required
+     />
+
+     <div className="d-flex mt-4">
+       <input
+         type="text"
+         placeholder="MM/YY"
+         className="form-control"
+         value={validity}
+         onChange={(e) => setValidity(e.target.value)}
+         required
+       />
+       <input
+         type="password"
+         placeholder="CVV"
+         className="form-control"
+         value={cvv}
+         onChange={(e) => setCvv(e.target.value)}
+         required
+       />
+     </div>
+     <div className="d-flex mt-4 me-3">
+       <button
+         type="button"
+         className="btn btn-success"
+         onClick={()=>{
+           handlepayment()
+         
+         
+           
+         }}
+       >
+         PAY 
+       </button>
+     </div>
+   </div>
+ </div>
+</div>
+
+  
   );
-}
+};

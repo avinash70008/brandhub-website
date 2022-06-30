@@ -48,7 +48,7 @@ export const ShirtDetails = () => {
         axios.post("https://avinashbrandhub.herokuapp.com/cart", el).then((data)=>{
             console.log("backend", data)
             alert("Product is Added into the Cart")
-           })   // 54-56
+           })   
         
         }
         else{
@@ -78,7 +78,9 @@ export const ShirtDetails = () => {
                   
                     <h3> Size - {el.size}</h3>
 
-                    <button onClick={()=>AddToCart(el)} id="cartButton">ADD TO CART</button>
+                    <button onClick={()=>AddToCart(el)} style={{"padding":"10px", 'backgroundColor':"blue","borderRadius":"10px",
+                        
+                    "color": "white","cursor":"pointer" }}>ADD TO CART</button>
                 </div>
                 
             ))}

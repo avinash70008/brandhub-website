@@ -1,9 +1,11 @@
-
+import styled from "styled-components"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router"
 import { useNavigate } from "react-router"
 import axios from "axios"
+
+
 
 export const BlazerDetails = () => {
 
@@ -81,7 +83,9 @@ export const BlazerDetails = () => {
                  
                     <h3> Size - {el.size}</h3>
 
-                    <button onClick={()=>AddToCart(el)} id="cartButton">ADD TO CART</button>
+                    <button onClick={()=>AddToCart(el)} style={{"padding":"10px", 'backgroundColor':"blue","borderRadius":"10px",
+                        
+                   "color": "white","cursor":"pointer" }}>ADD TO CART</button>
                 </div>
                 
             ))}
