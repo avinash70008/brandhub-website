@@ -200,7 +200,7 @@ const navigate = useNavigate()
 
                                 }
 
-                        }>Continue</Button>
+                        }>Save Details</Button>
 
 
                     </Box>
