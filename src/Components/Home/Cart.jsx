@@ -108,8 +108,8 @@ const getData = async()=>{
             <p>Total : {total} </p>
 
             {
-
-            isAuth == true ? <button onClick={
+               
+           total>0  && isAuth == true ? <button onClick={
                     () => navigate("/checkout")
                 }
 
