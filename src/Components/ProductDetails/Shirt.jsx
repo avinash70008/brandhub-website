@@ -6,11 +6,16 @@ import { useNavigate } from "react-router"
 import axios from "axios"
 
 export const ShirtDetails = () => {
+    const  [toogle, setToogle]= useState(true)
 
     const {_id} = useParams()
     const navigate = useNavigate();
     const [data ,setData] = useState([])
     let BackendCart = []
+
+    const handleCart=()=>{
+        navigate("/cart")
+    }
     
     useEffect(()=>{
         
@@ -49,6 +54,7 @@ export const ShirtDetails = () => {
             console.log("backend", data)
             alert("Product is Added into the Cart")
            })   
+           setToogle(false)
         
         }
         else{
@@ -78,14 +84,21 @@ export const ShirtDetails = () => {
                   
                     <h3> Size - {el.size}</h3>
 
-                    <button onClick={()=>AddToCart(el)} style={{"padding":"10px", 'backgroundColor':"blue","borderRadius":"10px",
-                        
-                    "color": "white","cursor":"pointer" }}>ADD TO CART</button>
+                    { 
+                    
+                        toogle?
+                        <button onClick={()=>AddToCart(el)} style={{"padding":"10px", 'backgroundColor':"blue","borderRadius":"10px",
+                            
+                       "color": "white","cursor":"pointer" }}>ADD TO CART</button>
+                       :
+                       <button  onClick={handleCart} style={{"padding":"10px","borderRadius":"10px"}}>
+                    Go to cart
+                    </button>              
+                  }
+                    </div>
+                ))}
                 </div>
-                
-            ))}
-            </div>
-            
+
 
        </>
     )

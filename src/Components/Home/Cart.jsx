@@ -12,29 +12,48 @@ export const Cart = () => {
     const isAuth = useSelector((store) => store.SignIn.isAuth)
     const data = useSelector((store) => store.cart.cart)
     let total = 0
-    // const [data, setData] = useState([]);
+  
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
 
-    // useEffect(() => {
-
-    //     dispatch(GetCartDAta())
-    // }, [])
-
-    const incrementQuantity = (id) => {
-        dispatch(increaseQty(id))
-    }
-    const decrementQuantity = (id) => {
-        dispatch(deccreaseQty(id))
-    }
-    
-    
-    const deleteItem = (_id) => {
   
-         fetch(`https://avinashbrandhub.herokuapp.com/cart/${_id}`, { method: 'DELETE' })
-                .then((res) => res.json())
-                .then(data=>alert("removed !"))
+
+    const incrementQuantity = (ele) => {
+        dispatch(increaseQty(ele._id))
+
+        axios.patch(`https://avinashbrandhub.herokuapp.com/cart/${ele._id}`, ele).then((data)=>{
+            console.log("increaements updated cart line 29", data.data)
+
+          
+          
+           
+           })
+        
+    }
+    const decrementQuantity = (ele) => {
+        dispatch(deccreaseQty(ele._id))
+
+        axios.patch(`https://avinashbrandhub.herokuapp.com/cart/${ele._id}`, ele).then((data)=>{
+            console.log("increaements updated cart line 29", data.data)
+
+          
+          
+           
+           })
+
+       
+    }
+    
+    
+    const deleteItem = (ele) => {
+  
+
+        axios.delete(`https://avinashbrandhub.herokuapp.com/cart/${ele._id}`, ele).then((data)=>{
+            dispatch(GetCartDAta(data.data))
+
+
+           })
              
             
         
@@ -69,7 +88,7 @@ const getData = async()=>{
                     <div className="counter">
                         <button onClick={
                             () => {
-                                incrementQuantity(el._id);
+                                incrementQuantity(el);
                             }
                         }>
                             +
@@ -78,7 +97,7 @@ const getData = async()=>{
                             el.qty
                         }</p>
                         <button onClick={
-                            () => {  decrementQuantity(el._id)
+                            () => {  decrementQuantity(el)
                             }
                         }>-</button>
                     </div>
@@ -95,7 +114,7 @@ const getData = async()=>{
                         }</p>
                         <button onClick={
 
-                            ()=>deleteItem(el._id)
+                            ()=>deleteItem(el)
                             
                         }>
                             Remove
@@ -108,8 +127,8 @@ const getData = async()=>{
             <p>Total : {total} </p>
 
             {
-               
-           total>0  && isAuth == true ? <button onClick={
+
+           total>0 && isAuth == true ? <button onClick={
                     () => navigate("/checkout")
                 }
 

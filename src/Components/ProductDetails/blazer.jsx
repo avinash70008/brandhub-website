@@ -2,18 +2,26 @@ import styled from "styled-components"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router"
-import { useNavigate } from "react-router"
+import {useNavigate, Navigate } from "react-router"
+
 import axios from "axios"
 
 
 
 export const BlazerDetails = () => {
 
+  const  [toogle, setToogle]= useState(true)
+
     const {_id} = useParams()
     const navigate = useNavigate();
     const [data ,setData] = useState([])
     // const [BackendCart ,SetBackendCart] = useState([])
     let BackendCart = []
+const handleCart=()=>{
+    navigate("/cart")
+}
+
+
     
     useEffect(()=>{
         
@@ -25,6 +33,7 @@ export const BlazerDetails = () => {
            
            })
     }, [])
+    //https://avinashbrandhub.herokuapp.com
 
     useEffect(()=>{getData()},[])
 
@@ -42,7 +51,7 @@ export const BlazerDetails = () => {
 
     function AddToCart(el){
       
-
+     
         let temp =   BackendCart.filter((elem)=>{
                if(elem._id==el._id){
                    return elem
@@ -50,13 +59,18 @@ export const BlazerDetails = () => {
               
                
           })
+          console.log("temo", temp)
         if(temp.length==0){
-        
+     
 
-           axios.post("https://avinashbrandhub.herokuapp.com/cart", el).then((data)=>{
-            console.log("backend", data)
-            alert("Product is Added into the Cart")
+           axios.post("https://avinashbrandhub.herokuapp.com/cart", el).then((response)=>{
+            console.log("backend from line 58", response.data._id)
+            alert("Product Added in the cart")
+       
+        
+           
            })   
+             setToogle(false)
         
         }
         else{
@@ -83,11 +97,18 @@ export const BlazerDetails = () => {
                  
                     <h3> Size - {el.size}</h3>
 
+                  { 
+                    
+                    toogle?
                     <button onClick={()=>AddToCart(el)} style={{"padding":"10px", 'backgroundColor':"blue","borderRadius":"10px",
                         
                    "color": "white","cursor":"pointer" }}>ADD TO CART</button>
+                   :
+                <button  onClick={handleCart} style={{"padding":"10px","borderRadius":"10px"}}>
+                Go to cart
+                </button>              
+              }
                 </div>
-                
             ))}
             </div>
             

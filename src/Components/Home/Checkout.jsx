@@ -39,11 +39,6 @@ export function Checkout() {
         console.log(data)
     }, [])
 
-    // const HandleChange = (e) =>{
-    // const input = e.target.value
-
-    // }
-    // console.log(HandleChange)
     const handleSubmit = () => {}
 
     return (
